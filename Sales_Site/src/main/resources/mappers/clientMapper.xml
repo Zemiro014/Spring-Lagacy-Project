@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="clientMapper">
+
+	<insert id="registerNewClient">
+
+		INSERT INTO CLIENT (
+								CPF,
+								FIRST_NAME,
+								SECOND_NAME,
+								PW,
+								EMAIL,
+								USER_
+							)
+					VALUES
+							(
+								#{cpf},
+								#{first_Name},
+								#{second_Name},
+								#{password},
+								#{email},
+								#{user_}
+							)
+	</insert>
+	
+	<select id="loginClient" resultType="kr.co.vo.ClientVO">
+		SELECT CPF, USER_, PW as password
+		FROM CLIENT
+		WHERE USER_ = #{user_}
+		<!-- AND PW = #{password}  -->
+	</select>
+	
+	<!-- Password check -->
+	<select id="passChk" resultType="int">
+		SELECT COUNT(*) FROM CLIENT
+		WHERE CPF = #{cpf}
+		AND PW = #{password}
+	</select>
+	
+	<!-- ID duplicate check -->
+	<select id="userChk" resultType="int">
+		SELECT COUNT(*) FROM CLIENT
+		WHERE CPF = #{cpf}
+	</select>
+   
+</mapper>
