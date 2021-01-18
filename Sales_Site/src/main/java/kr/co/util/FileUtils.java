@@ -37,6 +37,8 @@ public class FileUtils {
 		String storedFileName = null;
 		String storedfilePath = null;
 		String absoluteFilePath = null;
+		String root_path = null;
+		String attach_path = null;
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String, Object> listMap = null;
 		
@@ -62,16 +64,18 @@ public class FileUtils {
 				//String absoluteFilePath = context.getRealPath(filePath);
 				try 
 				{
-
-					absoluteFilePath = context.getRealPath(filePath);
+					root_path = mpRequest.getSession().getServletContext().getRealPath("/");
+					attach_path = "resources/uploadFiles/";
+					//absoluteFilePath = context.getRealPath(filePath);
 					
 				}catch(Exception e)
 				{
 					e.getCause();
 				}
-				File file = new File(absoluteFilePath, storedFileName);
+				File file = new File(root_path + attach_path + storedFileName);
 				System.out.println("File created: " + file.getName());
 				System.out.println("Absolute path: " + file.getAbsolutePath());
+				System.out.println("Path: " + file.getPath());
 				multipartFile.transferTo(file);		
 				storedfilePath = file.toString();
 				listMap = new HashMap<String, Object>();

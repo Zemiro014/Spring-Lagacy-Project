@@ -294,22 +294,11 @@ border:none;
 		<h4>Mobile Session</h4>
 	</div>
 	<div class="cell-phone" >
-		<ul>
-		<li>
-			<div class="card" style="width: 18rem;">
-					  <img src="\resources\uploadImages\69442a8734874aa7b59291f33d87381f.jpg" class="card-img-top" alt="...">
-					  <div class="card-body">
-					    <h5 class="card-title">TESTE</h5>
-					    <p class="card-text">TESTE</p>
-					    <p class="card-text"><b>Price: 2000.00 R$</b></p>					     
-					    <a href="#" class="btn btn-primary">Buy</a>
-					  </div>
-			</div>
-			</li>		
+		<ul>		
 			<c:forEach items="${ListCellPhones}" var="cellPhone">
 				<li>
 					<div class="card" style="width: 18rem;">
-					  <img src="${cellPhone.img_path}" class="card-img-top" alt="...">
+					  <img src="/resources/uploadFiles/${cellPhone.img_path}" class="card-img-top" alt="...">
 					  <div class="card-body">
 					    <h5 class="card-title">${cellPhone.product_name}</h5>
 					    <p class="card-text">${cellPhone.product_descri}</p>
