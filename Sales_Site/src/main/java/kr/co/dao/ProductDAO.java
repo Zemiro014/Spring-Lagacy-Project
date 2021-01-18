@@ -5,11 +5,15 @@ import java.util.Map;
 
 import kr.co.vo.ProductModelVO;
 import kr.co.vo.ProductVO;
+import kr.co.vo.SequenciaHarmonica;
+import kr.co.vo.Tonalidades;
 import kr.co.vo.TypeVO;
 
 public interface ProductDAO 
 {
 	public List<ProductVO> getAllProducts() throws Exception;
+	
+	public List<ProductVO> getAllProductsWithImage() throws Exception;
 	
 	public List<TypeVO> getAllProductType() throws Exception;
 	
@@ -30,4 +34,9 @@ public interface ProductDAO
 	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
 	
 	public void updateFile(Map<String, Object> map) throws Exception;
+	
+	
+	// Testando Exibição de Cifra
+	public List<Tonalidades> getTonalidades() throws Exception;
+	public List<SequenciaHarmonica> getSequenciasHarmonicas(Tonalidades tom) throws Exception;
 }

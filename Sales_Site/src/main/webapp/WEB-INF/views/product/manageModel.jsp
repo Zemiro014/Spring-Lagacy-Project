@@ -203,7 +203,7 @@ $(document).ready(function(){
 	
 	$(".btn-confirm").on('click', function(){
 	    var dataToSend = {};
-	    dataToSend["product_type_id"] = $("input[name='type_product']:checked").val();
+	    dataToSend["product_type_id"] = $("input[name='product_type_id']:checked").val();
 	    dataToSend["id_brand"] = $("input[name='brand_product']:checked").val();
 	    dataToSend["model"] = $("input[name='model']").val();
 		$.ajax({
@@ -227,7 +227,7 @@ $(document).ready(function(){
 			<h6>Select Type</h6>		
 			<c:forEach items="${type}" var="Type">							
 				<div class="form-check">
-				  <input class="form-check-input" type="radio" name="type_product" id="${Type.type}" value="${Type.id_type}" checked>
+				  <input class="form-check-input" type="radio" name="product_type_id" id="${Type.type}" value="${Type.id_type}" checked>
 				  <label class="form-check-label" for="${Type.type}"> ${Type.type}</label>
 				</div>
 			</c:forEach>

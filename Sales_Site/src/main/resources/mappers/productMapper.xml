@@ -9,6 +9,12 @@
    		FROM PRODUCT
    </select>
    
+   <select id="ListAllProductWithImage" resultType="kr.co.vo.ProductVO">
+		SELECT
+				P.ID_PRODUCT, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.MODEL_PRODUCT, P.PRODUCT_DESCRI, P.TYPE_PRODUCT AS id_type, PF.FILE_PATH AS img_path 
+		FROM PRODUCT P INNER JOIN PRODUCT_FILE PF ON P.ID_PRODUCT = PF.ID_PRODUCT
+   </select>
+   
    <insert id="registerNewProduct" parameterType="kr.co.vo.ProductVO" useGeneratedKeys="true" keyProperty="id_product">
    	    <selectKey keyProperty="id_product" resultType="int" order="BEFORE">
 	    	SELECT product_seq.nextval FROM DUAL
@@ -26,7 +32,7 @@
 			)
 		VALUES
 			(
-				#{id_product}, 
+				#{id_product},
 				#{product_name},
 				#{product_price},
 				#{product_state},
@@ -40,7 +46,7 @@
    <insert id="insertNewModel">
    		INSERT INTO 
 	   		<if test="id_brand == 1"> SAMSUNG_PRODUCT_MODELS</if>
-	   		<if test="bid_brand == 2">LG_PRODUCT_MODELS</if>
+	   		<if test="id_brand == 2">LG_PRODUCT_MODELS</if>
 	   		<if test="id_brand == 3">APPLE_PRODUCT_MODELS</if>
 	   		<if test="id_brand == 4">MOTOROLA_PRODUCT_MODELS</if>
 	   		<if test="id_brand == 5">XIAOMI_PRODUCT_MODELS</if>
@@ -57,7 +63,7 @@
 		   		<if test="id_brand == 4">MOTOROLA_MODEL_SEQ.nextval,</if>
 		   		<if test="id_brand == 5">XIAOMI_MODEL_SEQ.nextval,</if>
 		   		#{model},
-   				#{type_product}   				
+   				#{product_type_id}   				
    			)
    </insert>
    
@@ -99,18 +105,31 @@
 			ID_PRODUCT,
 			ORG_FILE_NAME,
 			STORED_FILE_NAME,
-			FILE_SIZE
+			FILE_SIZE,
+			FILE_PATH
 		)VALUES(
 			SEQ_MP_FILE_ID.NEXTVAL,
 			#{ID_PRODUCT},
 			#{ORG_FILE_NAME},
 			#{STORED_FILE_NAME},
-			#{FILE_SIZE}
+			#{FILE_SIZE},
+			#{FILE_PATH}
 		)
     </insert>
     
     <!-- Attachment Search -->
     <select id="selectFileList" parameterType="int" resultType="hashMap">
+		SELECT FILE_ID,
+			   ORG_FILE_NAME,
+			   ROUND(FILE_SIZE/1024,1) AS FILE_SIZE
+		  FROM PRODUCT_FILE
+		 WHERE ID_PRODUCT = #{ID_PRODUCT}
+		   AND DEL_GB = 'N'
+		   ORDER BY FILE_ID ASC
+	</select>
+	
+	    <!-- Attachment Search -->
+    <select id="selectImage" parameterType="int" resultType="hashMap">
 		SELECT FILE_ID,
 			   ORG_FILE_NAME,
 			   ROUND(FILE_SIZE/1024,1) AS FILE_SIZE
@@ -134,4 +153,26 @@
     	DEL_GB = 'Y'
     	WHERE ID_PRODUCT = #{ID_PRODUCT}
     </update>
+    
+    
+    <!-- Testando a exibição de Cifras  -->
+    <select id="getTonalidades" resultType="kr.co.vo.Tonalidades">
+		SELECT ID, TOM
+		FROM TONALIDADES
+	</select>
+	
+	<select id="getSquenciaHarmonica" resultType="kr.co.vo.SequenciaHarmonica">
+		SELECT
+			ID,
+			TOM,
+			PRIMEIRO,
+			SEGUNDO,
+			TERCEIRO,
+			QUARTO,
+			QUINTO,
+			SEXTO,
+			SETIMO
+		FROM SEQUE_HARMO
+		WHERE TOM = #{tom}
+	</select>
 </mapper>

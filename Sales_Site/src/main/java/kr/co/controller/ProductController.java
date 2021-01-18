@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import kr.co.service.ProductService;
 import kr.co.vo.ProductModelVO;
 import kr.co.vo.ProductVO;
+import kr.co.vo.SequenciaHarmonica;
+import kr.co.vo.Tonalidades;
 
 @Controller
 @RequestMapping("/product/*")
@@ -140,5 +142,26 @@ public class ProductController
 	{	
 		logger.info("Using Ajax to get product brand");
 		return prodService.getAllProductBrand();
+	}
+	
+	
+	
+	// Testando Exibição de cifras
+	@RequestMapping(value="/ExibirCifras", method=RequestMethod.GET)
+	public void getExibirCifras(Model model) throws Exception
+	{
+		logger.info("Mostrando exibidor de cifras");
+		model.addAttribute("tonalidades", prodService.getTonalidades());
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/listSequenciaHarmonico", method = RequestMethod.POST)
+	public List<SequenciaHarmonica> getSequenciasHarmonica(Tonalidades tonalidade) throws Exception
+	{		
+		logger.info("Usando Ajax para buscar a sequência harmonica");
+		System.out.println("Estou no Controller");
+		System.out.println("Tom >> "+tonalidade.getTom());
+		
+		return prodService.getSequenciasHarmonicas(tonalidade);
 	}
 }

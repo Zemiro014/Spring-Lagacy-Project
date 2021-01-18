@@ -287,8 +287,9 @@ $(document).ready(function(){
 			    {
 		            $.each(data, function(index,item) 
 		           	{		            	
-		            	var id_Model = item.id_brand;
+		            	var id_Model = item.model_id;
 		            	var model_ = item.model;
+		            	debugger;
 		            	$('#product_model').append('<option selected="" value="'+(id_Model)+'">'+(model_)+'</option>');
 		            });
 			    },

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -17,8 +19,8 @@ import kr.co.vo.ProductVO;
 //FileUtils é uma classe que executa várias operações usando as informações de arquivos anexados.
 @Component("fileUtils")
 public class FileUtils {
-	private static final String filePath = "C:\\mp\\file\\"; // where the file will be saved
-	
+	private static final String filePath = "/webapp/resources/uploadImages"; // where the file will be saved
+	 ServletContext context;
 	public List<Map<String, Object>> parseInsertFileInfo(ProductVO product, MultipartHttpServletRequest mpRequest) throws Exception
 	{		
 		/*
@@ -33,18 +35,21 @@ public class FileUtils {
 		String originalFileName = null;
 		String originalFileExtension = null;
 		String storedFileName = null;
-		
+		String storedfilePath = null;
+		String absoluteFilePath = null;
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String, Object> listMap = null;
 		
 		int ID_PRODUCT = product.getId_product();
 		
-		File file = new File(filePath);
+		
+		//File file = new File(filePath);
+		/*
 		if(file.exists() == false)
 		{
 			file.mkdirs();
 		}
-		
+		*/
 		while(iterator.hasNext()) 
 		{
 			multipartFile = mpRequest.getFile(iterator.next());
@@ -54,13 +59,27 @@ public class FileUtils {
 				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
 				storedFileName = getRandomString() + originalFileExtension;
 				
-				file = new File(filePath + storedFileName);
-				multipartFile.transferTo(file);
+				//String absoluteFilePath = context.getRealPath(filePath);
+				try 
+				{
+
+					absoluteFilePath = context.getRealPath(filePath);
+					
+				}catch(Exception e)
+				{
+					e.getCause();
+				}
+				File file = new File(absoluteFilePath, storedFileName);
+				System.out.println("File created: " + file.getName());
+				System.out.println("Absolute path: " + file.getAbsolutePath());
+				multipartFile.transferTo(file);		
+				storedfilePath = file.toString();
 				listMap = new HashMap<String, Object>();
 				listMap.put("ID_PRODUCT",ID_PRODUCT);
 				listMap.put("ORG_FILE_NAME", originalFileName);
 				listMap.put("STORED_FILE_NAME", storedFileName);
 				listMap.put("FILE_SIZE", multipartFile.getSize());
+				listMap.put("FILE_PATH", storedfilePath);
 				list.add(listMap);
 			}
 		}

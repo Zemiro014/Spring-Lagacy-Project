@@ -44,6 +44,10 @@
 				location.href="/product/newProduct";
 			})
 			
+			$("#exibirCifras").on("click", function(){
+				location.href="/product/ExibirCifras";
+			})
+			
 			$("#productScreen").on("click", function(){
 				location.href="/product/productScreen";
 			})
@@ -196,11 +200,11 @@ border:none;
 		      <a class="dropdown-item" href="#">Our teams</a>
 	   		</div>	
 	      </li>
-	      
 	       <li class="nav-item dropdown">
 	        <a class="nav-link dropbtn" href="#">Products</a>
 	        <div class="dropdown-content">
 		      <a class="dropdown-item" href="#" id="newProduct">About Products</a>
+		      <a class="dropdown-item" href="#" id="exibirCifras">Exibir Cifras</a>
 	   		</div>        
 	      </li>
 	      
@@ -290,16 +294,26 @@ border:none;
 		<h4>Mobile Session</h4>
 	</div>
 	<div class="cell-phone" >
-		<ul>		
-			<c:forEach items="${cellPhones}" var="product">
+		<ul>
+		<li>
+			<div class="card" style="width: 18rem;">
+					  <img src="\resources\uploadImages\69442a8734874aa7b59291f33d87381f.jpg" class="card-img-top" alt="...">
+					  <div class="card-body">
+					    <h5 class="card-title">TESTE</h5>
+					    <p class="card-text">TESTE</p>
+					    <p class="card-text"><b>Price: 2000.00 R$</b></p>					     
+					    <a href="#" class="btn btn-primary">Buy</a>
+					  </div>
+			</div>
+			</li>		
+			<c:forEach items="${ListCellPhones}" var="cellPhone">
 				<li>
 					<div class="card" style="width: 18rem;">
-					  <img src="..." class="card-img-top" alt="...">
+					  <img src="${cellPhone.img_path}" class="card-img-top" alt="...">
 					  <div class="card-body">
-					    <h5 class="card-title">${product.product_name}</h5>
-					    <p class="card-text">${product.product_descri}</p>
-					    <p class="card-text"><b>Price: ${product.product_price}0 R$</b></p>
-					    <input type="hidden" id="ID_PRODUCT" name="ID_PRODUCT" value="${product.id_product}" oninput="myFunction('${product.id_product}')"> 
+					    <h5 class="card-title">${cellPhone.product_name}</h5>
+					    <p class="card-text">${cellPhone.product_descri}</p>
+					    <p class="card-text"><b>Price: ${cellPhone.product_price}0 R$</b></p>					     
 					    <a href="#" class="btn btn-primary">Buy</a>
 					  </div>
 					</div>
@@ -313,14 +327,14 @@ border:none;
 	</div>
 	<div class="pc">
 		<ul>		
-			<c:forEach items="${computers}" var="product">
+			<c:forEach items="${ListComputers}" var="computer">
 				<li>
 					<div class="card" style="width: 18rem;">
-					  <img src="..." class="card-img-top" alt="...">
+					  <img src="${computer.img_path}" class="card-img-top" alt="...">
 					  <div class="card-body">
-					    <h5 class="card-title">${product.product_name}</h5>
-					    <p class="card-text">${product.product_descri}</p>
-					    <p class="card-text"><b>Price: ${product.product_price}0 R$</b></p>
+					    <h5 class="card-title">${computer.product_name}</h5>
+					    <p class="card-text">${computer.product_descri}</p>
+					    <p class="card-text"><b>Price: ${computer.product_price}0 R$</b></p>
 					    <a href="#" class="btn btn-primary">Buy</a>
 					  </div>
 					</div>
@@ -331,50 +345,20 @@ border:none;
 	
 	<div class="title-cell-phone"></div>
 	<div class="pc">
-		<ul>
-			<li>
-				<div class="card" style="width: 18rem;">
-				  <img src="..." class="card-img-top" alt="...">
-				  <div class="card-body">
-				    <h5 class="card-title">Product 1</h5>
-				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				    <a href="#" class="btn btn-primary">Buy</a>
-				  </div>
-				</div>
-			</li>
-
-			<li>
-				<div class="card" style="width: 18rem;">
-				  <img src="..." class="card-img-top" alt="...">
-				  <div class="card-body">
-				    <h5 class="card-title">Product 2</h5>
-				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				    <a href="#" class="btn btn-primary">Buy</a>
-				  </div>
-				</div>
-			</li>
-
-			<li>
-				<div class="card" style="width: 18rem;">
-				  <img src="..." class="card-img-top" alt="...">
-				  <div class="card-body">
-				    <h5 class="card-title">Product 3</h5>
-				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				    <a href="#" class="btn btn-primary">Buy</a>
-				  </div>
-				</div>
-			</li>
-
-			<li>
-				<div class="card" style="width: 18rem;">
-				  <img src="..." class="card-img-top" alt="...">
-				  <div class="card-body">
-				    <h5 class="card-title">Product 4</h5>
-				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				    <a href="#" class="btn btn-primary">Buy</a>
-				  </div>
-				</div>
-			</li>
+		<ul>		
+			<c:forEach items="${ListTVs}" var="tv">
+				<li>
+					<div class="card" style="width: 18rem;">
+					  <img src="${tv.img_path}" class="card-img-top" alt="...">
+					  <div class="card-body">
+					    <h5 class="card-title">${tv.product_name}</h5>
+					    <p class="card-text">${tv.product_descri}</p>
+					    <p class="card-text"><b>Price: ${tv.product_price}0 R$</b></p>
+					    <a href="#" class="btn btn-primary">Buy</a>
+					  </div>
+					</div>
+					</li>
+			</c:forEach>
 		</ul>
 	</div>
 	

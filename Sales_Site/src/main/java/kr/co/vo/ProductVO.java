@@ -17,6 +17,8 @@ public class ProductVO
 	private int id_model;
 	private String model;
 	
+	private String img_path;
+	
 	public int getId_product() {
 		return id_product;
 	}
@@ -91,6 +93,13 @@ public class ProductVO
 	}
 	public void setModel(String model) {
 		this.model = model;
+	}
+	
+	public String getImg_path() {
+		return img_path;
+	}
+	public void setImg_path(String img_path) {
+		this.img_path = img_path;
 	}
 	
 	

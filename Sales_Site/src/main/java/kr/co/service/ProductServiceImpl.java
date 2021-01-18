@@ -13,6 +13,8 @@ import kr.co.dao.ProductDAO;
 import kr.co.util.FileUtils;
 import kr.co.vo.ProductModelVO;
 import kr.co.vo.ProductVO;
+import kr.co.vo.SequenciaHarmonica;
+import kr.co.vo.Tonalidades;
 import kr.co.vo.TypeVO;
 
 @Service
@@ -29,20 +31,23 @@ public class ProductServiceImpl implements ProductService
 	{		
 		return prodDao.getAllProducts();
 	}
+	
+	@Override
+	public List<ProductVO> getAllProductsWithImage() throws Exception 
+	{
+		return prodDao.getAllProductsWithImage();
+	}
 
 	@Override
 	public void registerNewProduct(ProductVO product, MultipartHttpServletRequest mpRequest) throws Exception 
 	{
 		prodDao.registerNewProduct(product);
 		
-		System.out.println("Estou no Service Imple");		
-		System.out.println("Product ID >> "+product.getId_product());
-		
 		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(product, mpRequest);
 		int size = list.size();
 		for(int i=0; i<size; i++)
-		{ 
-			prodDao.insertFile(list.get(i)); 
+		{
+			prodDao.insertFile(list.get(i));
 		}
 	}
 
@@ -89,4 +94,23 @@ public class ProductServiceImpl implements ProductService
 	{
 		return prodDao.selectFileInfo(map);
 	}
+
+	// Testando Exibição de Cifra
+	@Override
+	public List<Tonalidades> getTonalidades() throws Exception 
+	{
+		// TODO Auto-generated method stub
+		return prodDao.getTonalidades();
+	}
+
+	@Override
+	public List<SequenciaHarmonica> getSequenciasHarmonicas(Tonalidades tom) throws Exception {
+		
+		System.out.println("Estou no Service");
+		System.out.println("Tom >> "+tom.getTom());
+		
+		return prodDao.getSequenciasHarmonicas(tom);
+	}
+
+
 }

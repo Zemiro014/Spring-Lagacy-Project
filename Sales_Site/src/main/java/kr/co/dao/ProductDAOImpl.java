@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.vo.ProductModelVO;
 import kr.co.vo.ProductVO;
+import kr.co.vo.SequenciaHarmonica;
+import kr.co.vo.Tonalidades;
 import kr.co.vo.TypeVO;
 
 @Repository
@@ -24,6 +26,12 @@ public class ProductDAOImpl implements ProductDAO
 		return sqlSession.selectList("productMapper.getAllProduct");
 	}
 
+	@Override
+	public List<ProductVO> getAllProductsWithImage() throws Exception
+	{
+		return sqlSession.selectList("productMapper.ListAllProductWithImage");
+	}
+	
 	@Override
 	public void registerNewProduct(ProductVO product) throws Exception 
 	{
@@ -83,4 +91,19 @@ public class ProductDAOImpl implements ProductDAO
 	{
 		sqlSession.update("productMapper.updateFile", map);
 	}
+
+	
+	// Testando Exibição de Cifras
+	@Override
+	public List<Tonalidades> getTonalidades() throws Exception
+	{
+		return sqlSession.selectList("productMapper.getTonalidades");
+	}
+
+	@Override
+	public List<SequenciaHarmonica> getSequenciasHarmonicas(Tonalidades tom) throws Exception {
+		 
+		return sqlSession.selectList("productMapper.getSquenciaHarmonica", tom);
+	}
+
 }
