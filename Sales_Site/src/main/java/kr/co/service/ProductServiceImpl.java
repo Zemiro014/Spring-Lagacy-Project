@@ -72,8 +72,6 @@ public class ProductServiceImpl implements ProductService
 	@Override
 	public List<ProductModelVO> listAllProductModel(ProductModelVO prModelVO) throws Exception 
 	{
-		System.out.println(">>>>>>> Estou no Service ");
-		System.out.println(">>>>>>> id_brand : "+prModelVO.getId_brand());
 		return prodDao.listAllProductModel(prModelVO);
 	}
 

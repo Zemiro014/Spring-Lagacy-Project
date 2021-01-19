@@ -20,7 +20,6 @@ import kr.co.vo.ProductVO;
 @Component("fileUtils")
 public class FileUtils {
 	private static final String filePath = "/webapp/resources/uploadImages"; // where the file will be saved
-	 ServletContext context;
 	public List<Map<String, Object>> parseInsertFileInfo(ProductVO product, MultipartHttpServletRequest mpRequest) throws Exception
 	{		
 		/*
@@ -36,22 +35,12 @@ public class FileUtils {
 		String originalFileExtension = null;
 		String storedFileName = null;
 		String storedfilePath = null;
-		String absoluteFilePath = null;
 		String root_path = null;
 		String attach_path = null;
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String, Object> listMap = null;
 		
 		int ID_PRODUCT = product.getId_product();
-		
-		
-		//File file = new File(filePath);
-		/*
-		if(file.exists() == false)
-		{
-			file.mkdirs();
-		}
-		*/
 		while(iterator.hasNext()) 
 		{
 			multipartFile = mpRequest.getFile(iterator.next());
@@ -60,15 +49,12 @@ public class FileUtils {
 				originalFileName = multipartFile.getOriginalFilename();
 				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
 				storedFileName = getRandomString() + originalFileExtension;
-				
-				//String absoluteFilePath = context.getRealPath(filePath);
 				try 
 				{
 					root_path = mpRequest.getSession().getServletContext().getRealPath("/");
-					attach_path = "resources/uploadFiles/";
-					//absoluteFilePath = context.getRealPath(filePath);
-					
-				}catch(Exception e)
+					attach_path = "resources/uploadFiles/";		
+				}
+				catch(Exception e)
 				{
 					e.getCause();
 				}
@@ -124,7 +110,7 @@ public class FileUtils {
 			for(int i = 0; i<fileNames.length; i++)
 			{
 					listMap = new HashMap<String,Object>();
-                 listMap.put("IS_NEW", "N");
+					listMap.put("IS_NEW", "N");
 					listMap.put("FILE_ID", files[i]); 
 					list.add(listMap); 
 			}

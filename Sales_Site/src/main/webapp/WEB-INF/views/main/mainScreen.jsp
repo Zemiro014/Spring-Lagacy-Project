@@ -18,169 +18,17 @@
 		<!-- Link to image in navbar -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 		
-							<!-- Static resources: External files -->
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/mainScreenCSS/footer.css"/> "/>
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/mainScreenCSS/gallery.css"/> "/>
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/mainScreenCSS/bannerCarroussel.css"/> "/>
+		<!-- Static resources: External files -->
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/mainScreenCSS/mainScreen.css"/> "/>
+		<script src="<c:url value="/resources/js/mainScreenJS/mainScreen.js"/> "></script>
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
   		
   		<!-- JavaScript Bundle with Popper -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-	</head>
+	</head>	
 
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$("#logoutBtn").on("click", function(){
-				location.href="/client/logoutClient";
-			})
-			
-			$("#listAllProduct").on("click", function(){
-				location.href="/product/listAllProducts";
-			})
-			
-			$("#newProduct").on("click", function(){
-				location.href="/product/newProduct";
-			})
-			
-			$("#exibirCifras").on("click", function(){
-				location.href="/product/ExibirCifras";
-			})
-			
-			$("#productScreen").on("click", function(){
-				location.href="/product/productScreen";
-			})
-		})
-		
-		function myFunction(id_product) {
-			debugger;
-			 dataToSend["type_product"]=id_product;
-			$.ajax({
-				url : "/product/fileDown",
-				type : "post",
-				dataType : "json",
-				data:dataToSend,
-				success : function(data)
-			    {
-		            $.each(data, function(index,item) 
-		           	{
-		            	alert("Aqui")
-		            });
-			    },
-				error: function() { alert("Error to get model !!") },
-			})
-		}
-	</script>	
-	
-<style>
-body
-{
-	background-color: white;
-}
-li.dropdown 
-{
- 	display: inline-block;
-}
-
-.dropdown-content 
-{
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a 
-{
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.dropdown-content a:hover 
-{
-	background-color: #f1f1f1;
-}
-
-.dropdown:hover .dropdown-content 
-{
-  	display: block;
-}
-
-.cell-phone
-{
-	padding-top:2%;
-	padding-left:0.5%;
-	height:50%;
-	width:100%;
-	overflow-y: scroll;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 
-				0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	text-align: center;
-}
-.cell-phone ul
-{
-	display:inline-block;
-}
-.cell-phone ul li
-{
-	float:left;
-	display:inline-block;
-	background:#1b1b1b;
-	margin:7 17px;
-}
-
-.pc
-{
-	padding-left:0.5%;
-	padding-top:2%;
-	height:50%;
-	width:100%;
-	overflow-y: scroll;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 
-				0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	text-align: center;
-}
-.pc ul
-{
-	display:inline-block;
-}
-.pc ul li
-{
-	float:left;
-	display:inline-block;
-	background:#1b1b1b;
-	margin:7 17px;
-}
-.pc ul li a, .cell-phone ul li a
-{
-	border:none;
-	background-color: #f2f2f2;;
-	color:black;
-	opacity:0.7;
-}
-	
-.title-cell-phone
-{
-	height:10%;
-	text-align: center;
-}
-
-.card
-{
-border:none;
-}
-.card:hover
-{
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 
-				0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-</style>
 <body>
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
   <a class="navbar-brand" href="#">HTmicron</a>
@@ -319,7 +167,7 @@ border:none;
 			<c:forEach items="${ListComputers}" var="computer">
 				<li>
 					<div class="card" style="width: 18rem;">
-					  <img src="${computer.img_path}" class="card-img-top" alt="...">
+					  <img src="/resources/uploadFiles/${computer.img_path}" class="card-img-top" alt="...">
 					  <div class="card-body">
 					    <h5 class="card-title">${computer.product_name}</h5>
 					    <p class="card-text">${computer.product_descri}</p>
@@ -332,13 +180,15 @@ border:none;
 		</ul>
 	</div>
 	
-	<div class="title-cell-phone"></div>
+	<div class="title-cell-phone">
+		<h4>TVs Session</h4>
+	</div>		
 	<div class="pc">
 		<ul>		
 			<c:forEach items="${ListTVs}" var="tv">
 				<li>
 					<div class="card" style="width: 18rem;">
-					  <img src="${tv.img_path}" class="card-img-top" alt="...">
+					  <img src="/resources/uploadFiles/${tv.img_path}" class="card-img-top" alt="...">
 					  <div class="card-body">
 					    <h5 class="card-title">${tv.product_name}</h5>
 					    <p class="card-text">${tv.product_descri}</p>
@@ -351,52 +201,24 @@ border:none;
 		</ul>
 	</div>
 	
-	<div class="title-cell-phone"></div>
+	<div class="title-cell-phone">
+		<h4>Watchs Session</h4>
+	</div>		
 	<div class="pc">
-		<ul>
-			<li>
-				<div class="card" style="width: 18rem;">
-				  <img src="..." class="card-img-top" alt="...">
-				  <div class="card-body">
-				    <h5 class="card-title">Product 1</h5>
-				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				    <a href="#" class="btn btn-primary">Buy</a>
-				  </div>
-				</div>
-			</li>
-
-			<li>
-				<div class="card" style="width: 18rem;">
-				  <img src="..." class="card-img-top" alt="...">
-				  <div class="card-body">
-				    <h5 class="card-title">Product 2</h5>
-				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				    <a href="#" class="btn btn-primary">Buy</a>
-				  </div>
-				</div>
-			</li>
-
-			<li>
-				<div class="card" style="width: 18rem;">
-				  <img src="..." class="card-img-top" alt="...">
-				  <div class="card-body">
-				    <h5 class="card-title">Product 3</h5>
-				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				    <a href="#" class="btn btn-primary">Buy</a>
-				  </div>
-				</div>
-			</li>
-
-			<li>
-				<div class="card" style="width: 18rem;">
-				  <img src="..." class="card-img-top" alt="...">
-				  <div class="card-body">
-				    <h5 class="card-title">Product 4</h5>
-				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				    <a href="#" class="btn btn-primary">Buy</a>
-				  </div>
-				</div>
-			</li>
+		<ul>		
+			<c:forEach items="${ListWatchs}" var="watch">
+				<li>
+					<div class="card" style="width: 18rem;">
+					  <img src="/resources/uploadFiles/${watch.img_path}" class="card-img-top" alt="...">
+					  <div class="card-body">
+					    <h5 class="card-title">${watch.product_name}</h5>
+					    <p class="card-text">${watch.product_descri}</p>
+					    <p class="card-text"><b>Price: ${watch.product_price}0 R$</b></p>
+					    <a href="#" class="btn btn-primary">Buy</a>
+					  </div>
+					</div>
+					</li>
+			</c:forEach>
 		</ul>
 	</div>
 </main>
