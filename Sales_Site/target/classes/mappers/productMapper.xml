@@ -3,18 +3,96 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="productMapper">
+
    <select id="getAllProduct" resultType="kr.co.vo.ProductVO">
+   		SELECT
+   			ID_PRODUCT, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_STATE, PRODUCT_DESCRI, BRAND_PRODUCT AS id_brand, MODEL_PRODUCT AS id_model, TYPE_PRODUCT AS id_type
+   		FROM PRODUCT
+   			<if test="id_brand == 0">
+   						<if test="id_type == 0"></if>
+   				   		<if test="id_type == 1">WHERE TYPE_PRODUCT = 1</if>
+				   		<if test="id_type == 2">WHERE TYPE_PRODUCT = 2</if>
+				   		<if test="id_type == 3">WHERE TYPE_PRODUCT = 3</if>
+				   		<if test="id_type == 4">WHERE TYPE_PRODUCT = 4</if>
+				   		<if test="id_type == 5">WHERE TYPE_PRODUCT = 5</if>
+				   		<if test="id_type == 6">WHERE TYPE_PRODUCT = 6</if>
+   			</if>
+   			
+   			<if test="id_brand == 1">WHERE BRAND_PRODUCT = 1</if>
+	   		<if test="id_brand == 2">WHERE BRAND_PRODUCT = 2</if>
+	   		<if test="id_brand == 3">WHERE BRAND_PRODUCT = 3</if>
+	   		<if test="id_brand == 4">WHERE BRAND_PRODUCT = 4</if>
+	   		<if test="id_brand == 5">WHERE BRAND_PRODUCT = 5</if>
+	   		 
+	   		<if test="id_type == 0"></if>
+	   		<if test="id_type == 1">AND TYPE_PRODUCT = 1</if>
+	   		<if test="id_type == 2">AND TYPE_PRODUCT = 2</if>
+	   		<if test="id_type == 3">AND TYPE_PRODUCT = 3</if>
+	   		<if test="id_type == 4">AND TYPE_PRODUCT = 4</if>
+	   		<if test="id_type == 5">AND TYPE_PRODUCT = 5</if>
+	   		<if test="id_type == 6">AND TYPE_PRODUCT = 6</if>
+   </select>
+	
+    <select id="getProduct" resultType="kr.co.vo.ProductVO">
    		SELECT
    			ID_PRODUCT, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_STATE, PRODUCT_DESCRI, TYPE_PRODUCT AS id_type
    		FROM PRODUCT
+   		WHERE ID_PRODUCT = #{id_product}
    </select>
    
+  	<delete id="deleteProduct" parameterType="int">
+		DELETE
+		  FROM PRODUCT
+		 WHERE ID_PRODUCT = #{id_product}
+	</delete>
+	
+   <select id="listPage" resultType="kr.co.vo.ProductVO" parameterType="kr.co.vo.SearchCriteria">
+   		SELECT 
+	   		ID_PRODUCT,
+	   		PRODUCT_NAME,
+	   		PRODUCT_PRICE, 
+	   		PRODUCT_STATE,
+	   		PRODUCT_DESCRI, 
+	   		TYPE_PRODUCT, 
+	   		BRAND_PRODUCT, 
+	   		MODEL_PRODUCT,
+	   		HIT
+   		FROM (
+   				SELECT 
+   					ID_PRODUCT, 
+			   		PRODUCT_NAME, 
+			   		PRODUCT_PRICE, 
+			   		PRODUCT_STATE, 
+			   		PRODUCT_DESCRI, 
+			   		TYPE_PRODUCT, 
+			   		BRAND_PRODUCT, 
+			   		MODEL_PRODUCT,
+			   		HIT,
+			   		ROW_NUMBER() OVER(ORDER BY ID_PRODUCT DESC) AS RNUM
+   				FROM PRODUCT
+   				WHERE 1 = 1
+   				<include refid="search"></include>
+   			) MP
+   		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY ID_PRODUCT DESC
+   </select>
+   
+   	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 'pn'.toString()">	AND PRODUCT_NAME LIKE '%' 	|| #{keyword} || '%'</if>
+			<if test="searchType == 'pp'.toString()">	AND PRODUCT_PRICE LIKE '%' 	|| #{keyword} || '%'</if>
+			<if test="searchType == 'pd'.toString()">	AND PRODUCT_DESCRI LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'pnpd'.toString()">	AND (PRODUCT_NAME LIKE '%' 	|| #{keyword} || '%') or (PRODUCT_DESCRI LIKE '%' || #{keyword} || '%')</if>
+		</if>
+	</sql>
+	
    <select id="ListAllProductWithImage" resultType="kr.co.vo.ProductVO">
 		SELECT
 				P.ID_PRODUCT, P.PRODUCT_NAME, P.PRODUCT_PRICE, P.MODEL_PRODUCT, P.PRODUCT_DESCRI, P.TYPE_PRODUCT AS id_type, PF.STORED_FILE_NAME AS img_path 
 		FROM PRODUCT P INNER JOIN PRODUCT_FILE PF ON P.ID_PRODUCT = PF.ID_PRODUCT
    </select>
    
+
    <insert id="registerNewProduct" parameterType="kr.co.vo.ProductVO" useGeneratedKeys="true" keyProperty="id_product">
    	    <selectKey keyProperty="id_product" resultType="int" order="BEFORE">
 	    	SELECT product_seq.nextval FROM DUAL

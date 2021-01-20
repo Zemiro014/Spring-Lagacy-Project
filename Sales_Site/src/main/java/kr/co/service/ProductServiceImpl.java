@@ -13,6 +13,7 @@ import kr.co.dao.ProductDAO;
 import kr.co.util.FileUtils;
 import kr.co.vo.ProductModelVO;
 import kr.co.vo.ProductVO;
+import kr.co.vo.SearchCriteria;
 import kr.co.vo.SequenciaHarmonica;
 import kr.co.vo.Tonalidades;
 import kr.co.vo.TypeVO;
@@ -27,9 +28,9 @@ public class ProductServiceImpl implements ProductService
 	ProductDAO prodDao;
 	
 	@Override
-	public List<ProductVO> getAllProducts() throws Exception 
+	public List<ProductVO> getAllProducts(ProductVO product) throws Exception 
 	{		
-		return prodDao.getAllProducts();
+		return prodDao.getAllProducts(product);
 	}
 	
 	@Override
@@ -92,7 +93,25 @@ public class ProductServiceImpl implements ProductService
 	{
 		return prodDao.selectFileInfo(map);
 	}
+	
+	// 19/01/2021
+	@Override
+	public List<ProductVO> listPage(SearchCriteria scri) throws Exception 
+	{
+		return prodDao.listPage(scri);
+	}
 
+	@Override
+	public List<ProductVO> getProduct(int id_product) throws Exception 
+	{
+		return prodDao.getProduct(id_product);
+	}
+	
+	@Override
+	public void deleteProduct(int id_product) throws Exception 
+	{
+		prodDao.deleteProduct(id_product);
+	}
 	// Testando Exibição de Cifra
 	@Override
 	public List<Tonalidades> getTonalidades() throws Exception 

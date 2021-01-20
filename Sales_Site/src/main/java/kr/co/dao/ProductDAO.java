@@ -5,13 +5,14 @@ import java.util.Map;
 
 import kr.co.vo.ProductModelVO;
 import kr.co.vo.ProductVO;
+import kr.co.vo.SearchCriteria;
 import kr.co.vo.SequenciaHarmonica;
 import kr.co.vo.Tonalidades;
 import kr.co.vo.TypeVO;
 
 public interface ProductDAO 
 {
-	public List<ProductVO> getAllProducts() throws Exception;
+	public List<ProductVO> getAllProducts(ProductVO product) throws Exception;
 	
 	public List<ProductVO> getAllProductsWithImage() throws Exception;
 	
@@ -35,6 +36,12 @@ public interface ProductDAO
 	
 	public void updateFile(Map<String, Object> map) throws Exception;
 	
+	// 19/02/2021
+	public List<ProductVO> listPage(SearchCriteria scri) throws Exception;
+	
+	public List<ProductVO> getProduct(int id_product) throws Exception;
+	
+	public void deleteProduct(int id_product) throws Exception;
 	
 	// Testando Exibição de Cifra
 	public List<Tonalidades> getTonalidades() throws Exception;

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -37,28 +38,72 @@ public class ProductController
 	public void getRegisterNewProduct(Model model) throws Exception
 	{
 		logger.info("Registering new product");
-		
-		//model.addAttribute("brand", prodService.getAllProductBrand());
+		model.addAttribute("brand", prodService.getAllProductBrand());
 		model.addAttribute("type", prodService.getAllProductType());
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/newProduct", method = RequestMethod.POST)
 	public String PostRegisterNewProduct(ProductVO product, MultipartHttpServletRequest mpRequest) throws Exception
 	{
 		logger.info("Registering new product");
 		
-		int id_type_ = (int)product.getId_type();
-		int id_brand_ = (int)product.getId_brand();
-		int id_model_ = (int)product.getId_model();
+		String msg = null;
+		try
+		{
+			int id_type_ = (int)product.getId_type();
+			int id_brand_ = (int)product.getId_brand();
+			int id_model_ = (int)product.getId_model();
+			
+			product.setId_type(id_type_);
+			product.setId_brand(id_brand_);
+			product.setId_model(id_model_);
+			
+			System.out.println("Product ID >> "+product.getId_product());
+			
+			prodService.registerNewProduct(product, mpRequest);
+			msg = "Registration was successful";
+			
+		} catch(Exception e) 
+		{
+			msg = "Error to register!!  Causa: " +e.getCause();
+		}
 		
-		product.setId_type(id_type_);
-		product.setId_brand(id_brand_);
-		product.setId_model(id_model_);
+		//return "/product/listAllProducts";
+		return msg;
+	}
+	@RequestMapping(value="/payment", method = RequestMethod.GET)
+	public void getPayment() throws Exception
+	{
+		logger.info("Get a payment form");
+	}
+	
+	@RequestMapping(value="/countProduct", method=RequestMethod.POST)
+	public String PostCountProduct(@RequestParam ("id_product")  int id_product, Model model) throws Exception
+	{
+		logger.info("Get count Product");
 		
-		System.out.println("Product ID >> "+product.getId_product());
+		model.addAttribute("getProduct",prodService.getProduct(id_product));
+		return "/product/lightBoxNewProduct";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/deleteProduct", method=RequestMethod.POST)
+	public String deleteProduct(@RequestParam ("id_product")  int id_product) throws Exception
+	{
+		logger.info("Deleting the product from the database");
+		String msg = null;
+		try 
+		{
+			prodService.deleteProduct(id_product);
+			msg = "successfully deleted";
+		} 
+		catch(Exception e)
+		{
+			msg="Failed to delete";
+		}		
 		
-		prodService.registerNewProduct(product, mpRequest);
-		return "/product/listAllProducts";
+		return msg;
 	}
 	
 	// Desativado
@@ -67,7 +112,7 @@ public class ProductController
 	{
 		logger.info("Listing all products");
 		
-		model.addAttribute("product",prodService.getAllProducts());
+		//model.addAttribute("product",prodService.getAllProducts());
 		
 		return "/product/listAllProducts";
 	}
@@ -83,11 +128,11 @@ public class ProductController
 	
 	@ResponseBody
 	@RequestMapping(value="/listAllProducts", method = RequestMethod.POST)
-	public List<ProductVO> ListAllProducts() throws Exception 
+	public List<ProductVO> ListAllProducts(ProductVO product) throws Exception 
 	{
-		logger.info("Listing all products");		
+		logger.info("Listing all products");
 		
-		return prodService.getAllProducts();
+		return prodService.getAllProducts(product);
 	}
 	
 	@ResponseBody

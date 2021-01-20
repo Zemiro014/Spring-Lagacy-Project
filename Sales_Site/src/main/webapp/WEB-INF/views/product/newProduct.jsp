@@ -16,6 +16,7 @@
 	<!-- Static resources: External files -->
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/newProductCSS/newProduct.css"/> "/>
 	<script src="<c:url value="/resources/js/newProductJS/newProduct.js"/> "></script>
+	<link rel="stylesheet" type="text/css"	href="<c:url value="/resources/tableStyle/table.css"/>" />
 </head>
 
 
@@ -32,7 +33,7 @@
 		</div>		
 		<div class="functions">
 			<div class="cadastre">
-				<form name="new_product" class="form container" role="form" method="post" action="/product/newProduct" enctype="multipart/form-data">
+				<form id="fileUploadForm" name="new_product" class="form container" role="form" method="post" enctype="multipart/form-data">
 					<div class="filter">
 						<div id="div_type" class="form-group col-md-4">
 							Select type:
@@ -93,9 +94,26 @@
 			
 			<div class="managment">
 				<div class="top">
-					<button type="button" class="btn btn-success btn-list">All products</button>
-					<button type="button" class="btn btn-warning">Update</button>
-					<button type="button" class="btn btn-danger">Delete</button>
+					<div id="listDiv_brand" class="form-group col-md-4">
+						Select brand:
+						<select id="listProduct_brand" class="form-control" name="id_brand">
+							<option selected value="0">All brand</option>
+							<c:forEach items="${brand}" var="Brand">
+								<option value="${Brand.id_brand}">${Brand.brand}</option>
+							</c:forEach>
+						</select>
+					</div>
+					
+					<div id="listDiv_type" class="form-group col-md-4">
+						Select type:
+						<select id="listProduct_type" class="form-control productType" name="id_type">
+						<option selected value="0">All type</option>
+						<c:forEach items="${type}" var="Type">
+						<option value="${Type.id_type}">${Type.type}</option>
+						</c:forEach>
+						</select>
+					</div>
+					<button type="button" class="btn btn-success btn-list">List</button>
 				</div>
 				<div class="bottom">
 					<h6>Managment Advanced</h6>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.vo.ProductModelVO;
 import kr.co.vo.ProductVO;
+import kr.co.vo.SearchCriteria;
 import kr.co.vo.SequenciaHarmonica;
 import kr.co.vo.Tonalidades;
 import kr.co.vo.TypeVO;
@@ -21,9 +22,9 @@ public class ProductDAOImpl implements ProductDAO
 	SqlSession sqlSession;
 	
 	@Override
-	public List<ProductVO> getAllProducts() throws Exception
+	public List<ProductVO> getAllProducts(ProductVO product) throws Exception
 	{
-		return sqlSession.selectList("productMapper.getAllProduct");
+		return sqlSession.selectList("productMapper.getAllProduct",product);
 	}
 
 	@Override
@@ -85,13 +86,31 @@ public class ProductDAOImpl implements ProductDAO
 	{
 		return sqlSession.selectOne("productMapper.selectFileInfo", map);
 	}
-
+	
 	@Override
 	public void updateFile(Map<String, Object> map) throws Exception
 	{
 		sqlSession.update("productMapper.updateFile", map);
 	}
-
+	
+	// 19/01/2021
+	@Override
+	public List<ProductVO> listPage(SearchCriteria scri) throws Exception
+	{
+		return sqlSession.selectList("productMapper.listPage", scri);
+	}
+	
+	@Override
+	public List<ProductVO> getProduct(int id_product) throws Exception
+	{
+		return sqlSession.selectList("productMapper.getProduct", id_product);
+	}
+	
+	@Override
+	public void deleteProduct(int id_product) throws Exception
+	{
+		sqlSession.selectList("productMapper.deleteProduct", id_product);
+	}
 	
 	// Testando Exibição de Cifras
 	@Override

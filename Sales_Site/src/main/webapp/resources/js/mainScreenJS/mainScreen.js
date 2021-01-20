@@ -21,6 +21,10 @@
 			$("#productScreen").on("click", function(){
 				location.href="/product/productScreen";
 			})
+			
+			$(".btnBuy").on("click", function(){
+				location.href="/product/payment";
+			})
 		})
 		
 		function myFunction(id_product) {

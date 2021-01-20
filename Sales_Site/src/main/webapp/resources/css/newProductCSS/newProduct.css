@@ -149,7 +149,8 @@ input[type=file]
 	justify-content: center;
 	border-style: ridge;
 }
-.btn-success, .btn-warning, .btn-danger, .btn-secondary
+
+.btn-success, .btn-secondary
 {
 	border-style: 3px dotted black;	
 	background-color:#c8d1da;
@@ -160,8 +161,8 @@ input[type=file]
 }
 .btn-success, .btn-warning, .btn-danger, .btn-secondary
 {
-	margin-right: 3%;
-	widht:10%;
+	margin-right: 5%;
+	width:10%;
 }
 .bottom
 {

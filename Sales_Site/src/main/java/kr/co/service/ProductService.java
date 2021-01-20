@@ -7,13 +7,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.vo.ProductModelVO;
 import kr.co.vo.ProductVO;
+import kr.co.vo.SearchCriteria;
 import kr.co.vo.SequenciaHarmonica;
 import kr.co.vo.Tonalidades;
 import kr.co.vo.TypeVO;
 
 public interface ProductService 
 {
-	public List<ProductVO> getAllProducts() throws Exception;
+	public List<ProductVO> getAllProducts(ProductVO product) throws Exception;
 	
 	public List<ProductVO> getAllProductsWithImage() throws Exception;
 	
@@ -33,7 +34,12 @@ public interface ProductService
 	
 	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
 	
+	// 19/01/2021
+	public List<ProductVO> listPage(SearchCriteria scri) throws Exception;
 	
+	public List<ProductVO> getProduct(int id_product) throws Exception;
+	
+	public void deleteProduct(int id_product) throws Exception;
 	// Testando Exibição de Cifra
 	public List<Tonalidades> getTonalidades() throws Exception;
 	

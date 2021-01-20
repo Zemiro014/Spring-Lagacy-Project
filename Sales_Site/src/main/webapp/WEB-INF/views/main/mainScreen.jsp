@@ -139,19 +139,19 @@
 <!--Inicio aqui -->
 <main class="product-area" onload="getImages()">
 	<div class="title-cell-phone">
-		<h4>Mobile Session</h4>
+		<h4 style="color:red; padding:15px;">Mobile Session</h4>
 	</div>
 	<div class="cell-phone" >
 		<ul>		
 			<c:forEach items="${ListCellPhones}" var="cellPhone">
 				<li>
 					<div class="card" style="width: 18rem;">
-					  <img src="/resources/uploadFiles/${cellPhone.img_path}" class="card-img-top" alt="...">
+					  <img src="/resources/uploadFiles/${cellPhone.img_path}" class="card-img-top" alt="..." width="340px" height="200px">
 					  <div class="card-body">
 					    <h5 class="card-title">${cellPhone.product_name}</h5>
 					    <p class="card-text">${cellPhone.product_descri}</p>
 					    <p class="card-text"><b>Price: ${cellPhone.product_price}0 R$</b></p>					     
-					    <a href="#" class="btn btn-primary">Buy</a>
+					    <a href="#" class="btnBuy btn btn-primary">Buy</a>
 					  </div>
 					</div>
 					</li>
@@ -160,19 +160,19 @@
 	</div>
 	
 	<div class="title-cell-phone">
-		<h4>Computer Session</h4>
+		<h4 style="color:red; padding:15px;">Computer Session</h4>
 	</div>
 	<div class="pc">
 		<ul>		
 			<c:forEach items="${ListComputers}" var="computer">
 				<li>
 					<div class="card" style="width: 18rem;">
-					  <img src="/resources/uploadFiles/${computer.img_path}" class="card-img-top" alt="...">
+					  <img src="/resources/uploadFiles/${computer.img_path}" class="card-img-top" alt="..."  width="340px" height="200px">
 					  <div class="card-body">
 					    <h5 class="card-title">${computer.product_name}</h5>
 					    <p class="card-text">${computer.product_descri}</p>
 					    <p class="card-text"><b>Price: ${computer.product_price}0 R$</b></p>
-					    <a href="#" class="btn btn-primary">Buy</a>
+					    <a href="#" class="btnBuy btn btn-primary">Buy</a>
 					  </div>
 					</div>
 					</li>
@@ -181,19 +181,19 @@
 	</div>
 	
 	<div class="title-cell-phone">
-		<h4>TVs Session</h4>
+		<h4 style="color:red; padding:15px;">TVs Session</h4>
 	</div>		
 	<div class="pc">
 		<ul>		
 			<c:forEach items="${ListTVs}" var="tv">
 				<li>
 					<div class="card" style="width: 18rem;">
-					  <img src="/resources/uploadFiles/${tv.img_path}" class="card-img-top" alt="...">
+					  <img src="/resources/uploadFiles/${tv.img_path}" class="card-img-top" alt="..."  width="340px" height="200px">
 					  <div class="card-body">
 					    <h5 class="card-title">${tv.product_name}</h5>
 					    <p class="card-text">${tv.product_descri}</p>
 					    <p class="card-text"><b>Price: ${tv.product_price}0 R$</b></p>
-					    <a href="#" class="btn btn-primary">Buy</a>
+					    <a href="#" class="btnBuy btn btn-primary">Buy</a>
 					  </div>
 					</div>
 					</li>
@@ -202,19 +202,19 @@
 	</div>
 	
 	<div class="title-cell-phone">
-		<h4>Watchs Session</h4>
+		<h4 style="color:red; padding:15px;">Watchs Session</h4>
 	</div>		
 	<div class="pc">
 		<ul>		
 			<c:forEach items="${ListWatchs}" var="watch">
 				<li>
 					<div class="card" style="width: 18rem;">
-					  <img src="/resources/uploadFiles/${watch.img_path}" class="card-img-top" alt="...">
+					  <img src="/resources/uploadFiles/${watch.img_path}" class="card-img-top" alt="..."  width="340px" height="200px">
 					  <div class="card-body">
 					    <h5 class="card-title">${watch.product_name}</h5>
 					    <p class="card-text">${watch.product_descri}</p>
 					    <p class="card-text"><b>Price: ${watch.product_price}0 R$</b></p>
-					    <a href="#" class="btn btn-primary">Buy</a>
+					    <a href="#" class="btnBuy btn btn-primary">Buy</a>
 					  </div>
 					</div>
 					</li>
